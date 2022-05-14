@@ -26,3 +26,22 @@ int addToAutostart()
 	}
 	return 0;
 }
+
+int removeFromAutostart() {
+
+	char re[MAX_PATH];
+	std::string FP = std::string(re, GetModuleFileNameA(NULL, re, MAX_PATH));
+
+	LONG ln = RegGetValueA(HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\Currentversion\\Run", "AmoTekDesktop", RRF_RT_REG_SZ, 0, 0, 0);
+	if (ERROR_SUCCESS == ln) // its in there, remove
+	{
+		HKEY hKey = HKEY_CURRENT_USER;
+		RegOpenKey(HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\Windows\\Currentversion\\Run", &hKey);
+		RegDeleteValue(hKey, "AmoTekDesktop");
+		RegCloseKey(hKey);
+		return 1;
+	}
+	
+	return 0;
+}
+

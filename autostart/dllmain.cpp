@@ -22,3 +22,9 @@ extern "C" __declspec(dllexport) double autostart()
     addToAutostart();
     return 1.0;
 }
+
+extern "C" __declspec(dllexport) double removeAutostart()
+{
+    removeFromAutostart();
+    return 1.0;
+}
